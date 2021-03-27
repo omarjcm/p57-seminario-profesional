@@ -1,0 +1,23 @@
+desarrolladores_latinos = c(1200, 1200, 800, 800, 600, 1000, 1000, 600, 1000, 600, 800, 1200, 10000)
+mean(desarrolladores_latinos, na.rm = TRUE)
+var(desarrolladores_latinos, na.rm = TRUE)
+sd(desarrolladores_latinos, na.rm = TRUE)
+boxplot(desarrolladores_latinos)
+
+desarrolladores_latinos_sin = c(1200, 1200, 800, 800, 600, 1000, 1000, 600, 1000, 600, 800, 1200)
+mean(desarrolladores_latinos_sin, na.rm = TRUE)
+var(desarrolladores_latinos_sin, na.rm = TRUE)
+sd(desarrolladores_latinos_sin, na.rm = TRUE)
+boxplot(desarrolladores_latinos_sin)
+
+desarrolladores_canadienses = c(9000, 8000, 10000, 12000, 11000, 13000, 10000, 8000, 10000, 800, 9000)
+mean(desarrolladores_canadienses, na.rm = TRUE)
+var(desarrolladores_canadienses, na.rm = TRUE)
+sd(desarrolladores_canadienses, na.rm = TRUE)
+boxplot(desarrolladores_canadienses)
+
+desarrolladores_canadienses_sin = c(9000, 8000, 10000, 12000, 11000, 13000, 10000, 8000, 10000, 9000)
+mean(desarrolladores_canadienses_sin, na.rm = TRUE)
+var(desarrolladores_canadienses_sin, na.rm = TRUE)
+sd(desarrolladores_canadienses_sin, na.rm = TRUE)
+boxplot(desarrolladores_canadienses_sin)

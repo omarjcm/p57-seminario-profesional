@@ -14,6 +14,15 @@ data_sucursal <- read.xlsx(xlsxFile = "Data/Data_Banco.xlsx", sheet = "Data_Sucu
 
 tbl_data_banco <- as_tibble( data_banco )
 
+tbl_data_banco <- tbl_data_banco %>%
+  mutate(Monto = str_replace(Monto, pattern=",", replacement=".") ) %>%
+  mutate(Sucursal = as.character(Sucursal),
+         Cajero = as.character(Cajero),
+         Satisfaccion = parse_factor(Satisfaccion, 
+                                     levels = c('Muy Malo', 'Malo', 'Regular', 'Bueno', 'Muy Bueno')),
+         Monto = parse_number(Monto, locale=locale(decimal_mark = "."))) %>%
+  glimpse
+
 
 # Medidas de Tendencia Central --------------------------------------------
 
@@ -53,26 +62,32 @@ ggplot(data = tbl_data_banco, aes(x="", y=Tiempo_Servicio_seg)) +
 
 tbl_data_banco %$% var(Tiempo_Servicio_seg, na.rm=TRUE)
 
-desarrolladores_latinos = c(1200, 1200, 800, 800, 600, 1000, 1000, 600, 1000, 600, 800, 1200, 10000)
-mean(desarrolladores_latinos, na.rm = TRUE)
-var(desarrolladores_latinos, na.rm = TRUE)
-sd(desarrolladores_latinos, na.rm = TRUE)
-boxplot(desarrolladores_latinos)
+tbl_data_banco %>% 
+  summarise(
+    MEDIA = mean(Tiempo_Servicio_seg, na.rm=TRUE),
+    MEDIA_ACOTADA = mean(Tiempo_Servicio_seg, na.rm=TRUE, trim=0.05),
+    DESV_ESTANDAR = sd(Tiempo_Servicio_seg, na.rm=TRUE),
+    VARIANZA = var(Tiempo_Servicio_seg, na.rm=TRUE),
+    CANTIDAD = n()
+  )
 
-desarrolladores_latinos_sin = c(1200, 1200, 800, 800, 600, 1000, 1000, 600, 1000, 600, 800, 1200)
-mean(desarrolladores_latinos_sin, na.rm = TRUE)
-var(desarrolladores_latinos_sin, na.rm = TRUE)
-sd(desarrolladores_latinos_sin, na.rm = TRUE)
-boxplot(desarrolladores_latinos_sin)
+glimpse(tbl_data_banco)
 
-desarrolladores_canadienses = c(9000, 8000, 10000, 12000, 11000, 13000, 10000, 8000, 10000, 800, 9000)
-mean(desarrolladores_canadienses, na.rm = TRUE)
-var(desarrolladores_canadienses, na.rm = TRUE)
-sd(desarrolladores_canadienses, na.rm = TRUE)
-boxplot(desarrolladores_canadienses)
+tbl_data_banco %>% 
+    summarise_at(
+      vars(Tiempo_Servicio_seg, Monto),
+      list(
+        MEDIA = ~mean(., na.rm=TRUE),
+        MEDIA_ACOTADA = ~mean(., na.rm=TRUE, trim=0.05),
+        DESV_ESTANDAR = ~sd(., na.rm=TRUE),
+        VARIANZA = ~var(., na.rm=TRUE),
+        CANTIDAD = ~n()
+      )
+    ) %>%
+  view()
 
-desarrolladores_canadienses_sin = c(9000, 8000, 10000, 12000, 11000, 13000, 10000, 8000, 10000, 9000)
-mean(desarrolladores_canadienses_sin, na.rm = TRUE)
-var(desarrolladores_canadienses_sin, na.rm = TRUE)
-sd(desarrolladores_canadienses_sin, na.rm = TRUE)
-boxplot(desarrolladores_canadienses_sin)
+
+  
+  
+  
+  
