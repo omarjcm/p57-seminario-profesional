@@ -87,7 +87,44 @@ tbl_data_banco %>%
   view()
 
 
+tbl_data_banco %>% 
+  summarise_if(
+    is.numeric,
+    list(
+      MEDIA = ~mean(., na.rm=TRUE),
+      MEDIA_ACOTADA = ~mean(., na.rm=TRUE, trim=0.05),
+      DESV_ESTANDAR = ~sd(., na.rm=TRUE),
+      VARIANZA = ~var(., na.rm=TRUE),
+      CANTIDAD = ~n()
+    )
+  ) %>%
+  view()
+
   
-  
-  
-  
+tbl_data_banco %>%
+  filter(Sucursal == 62) %>%
+  group_by(Transaccion, Satisfaccion) %>%
+  summarise(
+      MEDIA = mean(Tiempo_Servicio_seg, na.rm=TRUE),
+      MEDIA_ACOTADA = mean(Tiempo_Servicio_seg, na.rm=TRUE, trim=0.05),
+      DESV_ESTANDAR = sd(Tiempo_Servicio_seg, na.rm=TRUE),
+      VARIANZA = var(Tiempo_Servicio_seg, na.rm=TRUE),
+      CANTIDAD = n()
+  )
+
+
+
+tbl_data_banco %>%
+  group_by(Satisfaccion) %>%
+  summarise(
+    tibble(
+      Quartil=c("Min", "Q1", "Mediana", "Q3", "Max"),
+      Valor = quantile(Tiempo_Servicio_seg, c(0, 0.25, 0.5, 0.75, 1))
+    )
+  )
+
+hist(tbl_data_banco$Tiempo_Servicio_seg, breaks="Sturges", main = "Histograma para la variable Tiempo de Respuesta.")
+
+ggplot(data=tbl_data_banco, aes(x=Tiempo_Servicio_seg)) +
+  geom_histogram(aes(y=..count..)) +
+  labs(title = "Histograma para la variable Tiempo de Respuesta.")
