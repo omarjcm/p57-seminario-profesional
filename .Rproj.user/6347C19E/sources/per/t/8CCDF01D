@@ -1,0 +1,26 @@
+{
+    "id": "8CCDF01D",
+    "path": "/media/omarjcm/FAE05C7CE05C4155/DATA_SCIENCE/CLAUSTRO/MODULO_06/postgresql_r-v3.0/PostgreSQL-R/Scripts/consultas.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "1960985686",
+    "contents": "",
+    "dirty": false,
+    "created": 1616548792999.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "17,2",
+        "scrollLine": "7"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1616549007,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1616549007420,
+    "read_only": false,
+    "read_only_alternatives": []
+}
