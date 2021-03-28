@@ -128,3 +128,20 @@ hist(tbl_data_banco$Tiempo_Servicio_seg, breaks="Sturges", main = "Histograma pa
 ggplot(data=tbl_data_banco, aes(x=Tiempo_Servicio_seg)) +
   geom_histogram(aes(y=..count..)) +
   labs(title = "Histograma para la variable Tiempo de Respuesta.")
+
+table(data_banco$Transaccion)
+table(data_banco$Satisfaccion)
+
+barplot( table(tbl_data_banco$Transaccion) )
+
+ggplot(data=tbl_data_banco, aes(x=Satisfaccion)) +
+  geom_bar() +
+  coord_flip() +
+  labs(title = "Gráfico de barras para nivel de Satisfacción", y="Cantidad", x="Nivel de Satisfacción")
+
+library(prettyR)
+
+describe( tbl_data_banco, num.desc = c("mean", "sd", "median", "min", "max", "valid.n") )
+
+
+
