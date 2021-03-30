@@ -66,3 +66,32 @@ tbl_data_banco %>%
   coord_flip() +
   labs(title = "Cantidad de transacciones por Sucursal", y="Cantidad") +
   theme_bw()
+
+tbl_data_banco %>% 
+  ggplot(aes(x=forcats::fct_infreq(Sucursal))) +
+  geom_bar( aes(fill=Sucursal) ) +
+  labs(title = "Cantidad de transacciones por Sucursal", y="Cantidad", x="Sucursal") 
+
+tbl_data_banco %>% 
+  group_by(Sucursal) %>% 
+  summarise(Frec=n()) %>% 
+  mutate( Prop=Frec/sum(Frec) ) %>% 
+  ggplot( aes(x="", y=Prop, fill=Sucursal) ) +
+  geom_bar(stat="identity", width = 1, color="white") +
+  coord_polar("y", start = 0) +
+  theme_void()
+
+tbl_data_banco %>% 
+  group_by(Sucursal) %>% 
+  summarise( Frec=n() ) %>% 
+  arrange(-Frec) %>% 
+  mutate(
+    Prop=round( Frec/sum(Frec)*100, 2 ),
+    PosLab= cumsum(Prop) - 0.45*Prop
+  ) %>% 
+  ggplot( aes(x="", y=Prop, fill=reorder(Sucursal, Frec)) ) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  geom_text(aes(y=PosLab, label=Prop), color="white", size=3) +
+  labs(title = "Proporción de transacciones por Sucursal", fill="Sucursal")
